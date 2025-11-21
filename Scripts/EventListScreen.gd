@@ -368,7 +368,7 @@ func _create_back_button():
 	"""Create a sleek back button near the profile icon"""
 	back_to_home_button = Button.new()
 	back_to_home_button.text = "🏠 Home"
-	back_to_home_button.custom_minimum_size = Vector2(110, 50)
+	back_to_home_button.custom_minimum_size = Vector2(150, 55)
 
 	# Sleek circular style matching profile button
 	var style_normal = StyleBoxFlat.new()
