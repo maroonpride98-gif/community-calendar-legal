@@ -338,6 +338,14 @@ func _load_user_data():
 	if cached_user:
 		set_user_data(cached_user)
 
+		# Auto-load events for user's saved ZIP code
+		if cached_user.has("zipcode") and cached_user["zipcode"] != "":
+			var user_zip = cached_user["zipcode"]
+			print("[EventListScreen] Auto-loading events for user's ZIP: ", user_zip)
+			# Set the zipcode filter and trigger event loading
+			zipcode_filter.text = user_zip
+			_on_zipcode_changed(user_zip)
+
 func set_user_data(user_data: Dictionary):
 	current_user_data = user_data
 	# Keep profile button simple with just the icon
