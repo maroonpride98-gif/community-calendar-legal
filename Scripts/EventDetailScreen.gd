@@ -350,19 +350,40 @@ func _create_comments_section():
 	comments_container.add_child(comment_submit_button)
 
 func _on_comment_submit():
+	print("[EventDetail] Submit button clicked")
+
+	# Validate comment input exists
+	if not comment_input:
+		print("[EventDetail] ERROR: comment_input is null!")
+		_show_error_toast("Error: Comment input not initialized")
+		return
+
+	# Validate current event exists
+	if not current_event:
+		print("[EventDetail] ERROR: current_event is null!")
+		_show_error_toast("Error: Event not loaded")
+		return
+
 	var text = comment_input.text.strip_edges()
+	print("[EventDetail] Comment text: '", text, "' (length: ", text.length(), ")")
 
 	if text.length() == 0:
+		print("[EventDetail] Comment is empty")
 		_show_error_toast("Comment cannot be empty")
 		return
 
 	if text.length() > 500:
+		print("[EventDetail] Comment too long")
 		_show_error_toast("Comment is too long (max 500 characters)")
 		return
 
 	if api.auth_token == "":
-		_show_error_toast("Please log in to post comments")
+		print("[EventDetail] Not logged in")
+		_show_error_toast("❌ Please log in to post comments")
 		return
+
+	print("[EventDetail] Submitting comment for event ID: ", current_event.id)
+	print("[EventDetail] Auth token exists: ", api.auth_token != "")
 
 	# Disable button while submitting
 	comment_submit_button.disabled = true
@@ -371,17 +392,22 @@ func _on_comment_submit():
 	api.add_comment(current_event.id, text)
 
 func _on_comment_added(success: bool, comment: Dictionary):
+	print("[EventDetail] Comment added callback - Success: ", success)
+	print("[EventDetail] Response: ", comment)
+
 	comment_submit_button.disabled = false
 	comment_submit_button.text = "💬 Post Comment"
 
 	if success:
+		print("[EventDetail] Comment posted successfully!")
 		comment_input.text = ""
-		_show_success_toast("Comment posted!")
+		_show_success_toast("✅ Comment posted!")
 		# Refresh comments
 		api.fetch_comments(current_event.id)
 	else:
 		var message = comment.get("message", "Failed to post comment")
-		_show_error_toast(message)
+		print("[EventDetail] Comment failed: ", message)
+		_show_error_toast("❌ " + message)
 
 func _on_comments_fetched(comments: Array):
 	# Clear existing comments
@@ -513,25 +539,61 @@ func _format_comment_time(timestamp: String) -> String:
 	return "recently"  # TODO: Implement proper time formatting
 
 func _show_success_toast(message: String):
-	var toast = Label.new()
-	toast.text = "✅ " + message
-	toast.add_theme_font_size_override("font_size", 24)
-	toast.add_theme_color_override("font_color", Color.GREEN)
+	print("[EventDetail] Showing success toast: ", message)
+	var toast = PanelContainer.new()
+
+	# Style the toast
+	var toast_style = StyleBoxFlat.new()
+	toast_style.bg_color = Color(0.2, 0.8, 0.3, 0.95)
+	toast_style.corner_radius_top_left = 10
+	toast_style.corner_radius_top_right = 10
+	toast_style.corner_radius_bottom_left = 10
+	toast_style.corner_radius_bottom_right = 10
+	toast_style.content_margin_left = 30
+	toast_style.content_margin_right = 30
+	toast_style.content_margin_top = 20
+	toast_style.content_margin_bottom = 20
+	toast.add_theme_stylebox_override("panel", toast_style)
+
+	var label = Label.new()
+	label.text = message
+	label.add_theme_font_size_override("font_size", 32)
+	label.add_theme_color_override("font_color", Color.WHITE)
+	toast.add_child(label)
+
 	toast.position = Vector2(get_viewport_rect().size.x / 2 - 200, 100)
 	add_child(toast)
 
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(3.0).timeout
 	if toast:
 		toast.queue_free()
 
 func _show_error_toast(message: String):
-	var toast = Label.new()
-	toast.text = "❌ " + message
-	toast.add_theme_font_size_override("font_size", 24)
-	toast.add_theme_color_override("font_color", Color.RED)
+	print("[EventDetail] Showing error toast: ", message)
+	var toast = PanelContainer.new()
+
+	# Style the toast
+	var toast_style = StyleBoxFlat.new()
+	toast_style.bg_color = Color(0.9, 0.2, 0.2, 0.95)
+	toast_style.corner_radius_top_left = 10
+	toast_style.corner_radius_top_right = 10
+	toast_style.corner_radius_bottom_left = 10
+	toast_style.corner_radius_bottom_right = 10
+	toast_style.content_margin_left = 30
+	toast_style.content_margin_right = 30
+	toast_style.content_margin_top = 20
+	toast_style.content_margin_bottom = 20
+	toast.add_theme_stylebox_override("panel", toast_style)
+
+	var label = Label.new()
+	label.text = message
+	label.add_theme_font_size_override("font_size", 32)
+	label.add_theme_color_override("font_color", Color.WHITE)
+	toast.add_child(label)
+
 	toast.position = Vector2(get_viewport_rect().size.x / 2 - 200, 100)
 	add_child(toast)
 
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(3.0).timeout
 	if toast:
 		toast.queue_free()

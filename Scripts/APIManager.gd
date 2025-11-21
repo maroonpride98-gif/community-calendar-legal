@@ -893,20 +893,30 @@ func _demo_update_profile(profile_data: Dictionary):
 
 # Comment functions
 func add_comment(event_id: int, comment_text: String):
+	print("[APIManager] add_comment called - Event ID: ", event_id)
+	print("[APIManager] Comment text length: ", comment_text.length())
+
 	# Validate input
 	comment_text = comment_text.strip_edges()
 	if comment_text.length() == 0:
+		print("[APIManager] Comment is empty")
 		comment_added.emit(false, {"message": "Comment cannot be empty"})
 		return
 
 	if comment_text.length() > 500:
+		print("[APIManager] Comment too long")
 		comment_added.emit(false, {"message": "Comment cannot exceed 500 characters"})
 		return
 
 	# Demo mode
 	if Config.is_demo_mode():
+		print("[APIManager] Using demo mode")
 		_demo_add_comment(event_id, comment_text)
 		return
+
+	print("[APIManager] Making API request to add comment")
+	print("[APIManager] API URL: ", Config.get_api_url())
+	print("[APIManager] Has auth token: ", auth_token != "")
 
 	# Track analytics
 	Analytics.track_event("comment_added", {"event_id": event_id})
@@ -914,7 +924,7 @@ func add_comment(event_id: int, comment_text: String):
 	# Make API request
 	var http = HTTPRequest.new()
 	add_child(http)
-	http.timeout = request_timeout
+	http.timeout = 60.0  # Longer timeout for comments
 	http.request_completed.connect(func(result, response_code, headers, body):
 		_on_comment_added(result, response_code, headers, body, event_id)
 	)
@@ -922,10 +932,19 @@ func add_comment(event_id: int, comment_text: String):
 	var body_data = JSON.stringify({"text": comment_text})
 	var headers_list = _get_auth_headers()
 	headers_list.append("Content-Type: application/json")
-	var result = http.request(Config.get_api_url() + "/events/" + str(event_id) + "/comments", headers_list, HTTPClient.METHOD_POST, body_data)
+
+	print("[APIManager] Request headers: ", headers_list)
+	print("[APIManager] Request body: ", body_data)
+
+	var url = Config.get_api_url() + "/events/" + str(event_id) + "/comments"
+	print("[APIManager] Full URL: ", url)
+
+	var result = http.request(url, headers_list, HTTPClient.METHOD_POST, body_data)
 
 	if result != OK:
+		print("[APIManager] HTTP request failed immediately: ", result)
 		_handle_request_error("Failed to add comment")
+		http.queue_free()
 		comment_added.emit(false, {"message": "Network error. Please try again."})
 
 func fetch_comments(event_id: int):
@@ -948,10 +967,39 @@ func fetch_comments(event_id: int):
 		comments_fetched.emit([])
 
 func _on_comment_added(result, response_code, headers, body, event_id: int):
+	print("[APIManager] Comment response - Result: ", result, " Code: ", response_code)
+
+	# Handle network errors
+	if result != HTTPRequest.RESULT_SUCCESS:
+		print("[APIManager] Network error: ", result)
+		var error_msg = "Connection failed"
+		if result == HTTPRequest.RESULT_TIMEOUT:
+			error_msg = "Request timed out. Please try again."
+		elif result == HTTPRequest.RESULT_CANT_CONNECT:
+			error_msg = "Cannot connect to server. Check your internet."
+		comment_added.emit(false, {"message": error_msg})
+		_cleanup_http_request()
+		return
+
 	var response = _parse_response(body)
+	print("[APIManager] Parsed response: ", response)
+
 	var success = response_code == 201 or response_code == 200
 
 	if not success:
+		print("[APIManager] Comment failed - Code: ", response_code)
+		if response_code == 401:
+			response["message"] = "You must be logged in to comment"
+			token_expired.emit()
+		elif response_code == 404:
+			response["message"] = "Event not found"
+		elif response_code == 400:
+			if not response.has("message"):
+				response["message"] = "Invalid comment data"
+		elif response_code == 0:
+			response["message"] = "No response from server"
+		elif response_code >= 500:
+			response["message"] = Config.get_error_message(response_code)
 		Analytics.track_error("Comment add failed", response_code)
 
 	comment_added.emit(success, response)
