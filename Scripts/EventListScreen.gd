@@ -34,6 +34,7 @@ var zipcode_cache = {}  # Cache zip code -> city name mappings
 var location_label: Label = null  # Prominent location display
 var is_showing_welcome = true  # Track if we're on welcome screen or city view
 var welcome_screen: Control = null  # The welcome/landing page
+var back_to_home_button: Button = null  # Button to return to welcome screen
 
 func _ready():
 	# Connect signals
@@ -62,6 +63,9 @@ func _ready():
 	# Load user data
 	_load_user_data()
 
+	# Create back to home button
+	_create_back_button()
+
 	# Show welcome screen instead of loading all events
 	_show_welcome_screen()
 
@@ -70,6 +74,10 @@ func _show_welcome_screen():
 	# Set state
 	is_showing_welcome = true
 	loading_label.visible = false
+
+	# Hide back button on welcome screen
+	if back_to_home_button:
+		back_to_home_button.visible = false
 
 	# Clear event container
 	for child in event_container.get_children():
@@ -327,6 +335,10 @@ func _hide_welcome_screen():
 	"""Remove welcome screen and switch to city view mode"""
 	is_showing_welcome = false
 
+	# Show back button when viewing events
+	if back_to_home_button:
+		back_to_home_button.visible = true
+
 	# Remove welcome screen if it exists
 	if welcome_screen:
 		welcome_screen.queue_free()
@@ -351,6 +363,51 @@ func set_user_data(user_data: Dictionary):
 	# Keep profile button simple with just the icon
 	profile_button.text = "👤"
 	profile_button.tooltip_text = user_data.get("username", "Profile") + " - Click for settings"
+
+func _create_back_button():
+	"""Create a back to home button that appears when viewing events"""
+	back_to_home_button = Button.new()
+	back_to_home_button.text = "🏠 Back to Home"
+	back_to_home_button.custom_minimum_size = Vector2(200, 60)
+
+	# Style with high-tech cyan theme
+	var style_normal = StyleBoxFlat.new()
+	style_normal.bg_color = Color(0.1, 0.6, 0.8, 0.9)
+	style_normal.corner_radius_top_left = 10
+	style_normal.corner_radius_top_right = 10
+	style_normal.corner_radius_bottom_left = 10
+	style_normal.corner_radius_bottom_right = 10
+	style_normal.border_width_left = 2
+	style_normal.border_width_right = 2
+	style_normal.border_width_top = 2
+	style_normal.border_width_bottom = 2
+	style_normal.border_color = Color(0, 1, 1, 0.8)
+	style_normal.shadow_size = 10
+	style_normal.shadow_color = Color(0, 1, 1, 0.4)
+
+	var style_hover = style_normal.duplicate()
+	style_hover.bg_color = Color(0.15, 0.7, 0.9, 1.0)
+	style_hover.shadow_size = 15
+	style_hover.shadow_color = Color(0, 1, 1, 0.6)
+
+	var style_pressed = style_normal.duplicate()
+	style_pressed.bg_color = Color(0.05, 0.5, 0.7, 1.0)
+	style_pressed.shadow_size = 5
+
+	back_to_home_button.add_theme_stylebox_override("normal", style_normal)
+	back_to_home_button.add_theme_stylebox_override("hover", style_hover)
+	back_to_home_button.add_theme_stylebox_override("pressed", style_pressed)
+	back_to_home_button.add_theme_font_size_override("font_size", 24)
+	back_to_home_button.add_theme_color_override("font_color", Color.WHITE)
+
+	# Connect to back function
+	back_to_home_button.pressed.connect(_on_back_to_home_pressed)
+
+	# Add to top bar (next to logo)
+	logo_container.add_child(back_to_home_button)
+
+	# Initially hidden (only show when viewing events)
+	back_to_home_button.visible = false
 
 func _setup_categories():
 	category_dropdown.clear()
@@ -486,6 +543,7 @@ func _on_zipcode_changed(new_text: String):
 	# If it's a 5-digit zip code, use it and show city name
 	if input.length() == 5 and input.is_valid_int():
 		current_zipcode = input
+		_save_last_city(input)  # Save for persistence
 		_update_location_display()
 		await get_tree().create_timer(0.5).timeout
 		_refresh_events()  # Load events from API
@@ -499,6 +557,7 @@ func _on_zipcode_changed(new_text: String):
 		if zipcode_filter.text.strip_edges() == input:
 			# Use the city name directly in search
 			current_zipcode = input
+			_save_last_city(input)  # Save for persistence
 			_update_location_display()
 			_refresh_events()  # Load events from API
 
@@ -598,6 +657,26 @@ func _on_create_pressed():
 
 func _on_profile_pressed():
 	_show_profile_menu()
+
+func _on_back_to_home_pressed():
+	"""Return to welcome screen from city view"""
+	# Save current city before going back (for persistence)
+	_save_last_city(current_zipcode)
+
+	# Show welcome screen
+	_show_welcome_screen()
+
+	# Clear filters
+	zipcode_filter.text = ""
+	search_input.text = ""
+	category_dropdown.selected = 0
+	favorites_toggle.button_pressed = false
+
+	# Reset state
+	current_zipcode = ""
+	current_search = ""
+	current_category = ""
+	show_favorites_only = false
 
 func _show_profile_menu():
 	var popup = PopupMenu.new()
@@ -1437,3 +1516,29 @@ func _on_zipcode_lookup_completed(result: int, response_code: int, headers: Pack
 
 	# Fallback if API fails
 	zipcode_cache[zipcode] = "ZIP: " + zipcode
+
+func _save_last_city(city_or_zip: String):
+	"""Save the last searched city/ZIP for persistence"""
+	if city_or_zip != "":
+		var save_data = {
+			"last_city": city_or_zip,
+			"timestamp": Time.get_unix_time_from_system()
+		}
+		# Save to user settings file
+		var file = FileAccess.open("user://last_city.dat", FileAccess.WRITE)
+		if file:
+			file.store_var(save_data)
+			file.close()
+			print("[EventList] Saved last city: ", city_or_zip)
+
+func _load_last_city() -> String:
+	"""Load the last searched city/ZIP"""
+	if FileAccess.file_exists("user://last_city.dat"):
+		var file = FileAccess.open("user://last_city.dat", FileAccess.READ)
+		if file:
+			var save_data = file.get_var()
+			file.close()
+			if save_data and save_data.has("last_city"):
+				print("[EventList] Loaded last city: ", save_data["last_city"])
+				return save_data["last_city"]
+	return ""

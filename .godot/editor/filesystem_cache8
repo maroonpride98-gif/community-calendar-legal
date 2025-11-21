@@ -1,5 +1,5 @@
 fc8a56933c4b1c8d796fdb8f7a9f9475
-::res://::1763695987
+::res://::1763698198
 BACKEND_API.md::TextFile::-1::1763577091::0::1::::<><>::
 DEPLOYMENT_CHECKLIST.md::TextFile::-1::1763581358::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1763671106::0::1::::<><>::
@@ -2181,9 +2181,9 @@ index.apple-touch-icon.png::CompressedTexture2D::4688965768382808542::1763609286
 index.icon.png::CompressedTexture2D::7776405549830192034::1763609286::1763611914::1::::<><>::
 index.manifest.json::JSON::-1::1763609286::0::1::::<><>::
 index.png::CompressedTexture2D::5610758499251374647::1763609286::1763611914::1::::<><>::
-::res://Scenes/::1763693009
-Main.tscn::PackedScene::3907820252759326256::1763693009::0::1::::<><>::res://Scripts/Main.gd<>res://Scripts/APIManager.gd
-::res://Scripts/::1763693298
+::res://Scenes/::1763697464
+Main.tscn::PackedScene::3907820252759326256::1763697464::0::1::::<><>::res://Scripts/Main.gd<>res://Scripts/APIManager.gd
+::res://Scripts/::1763696569
 Analytics.gd::GDScript::-1::1763663814::0::1::::<>Node<>::
 AnalyticsProviders.gd::GDScript::-1::1763581919::0::1::::<>Node<>::
 APIManager.gd::GDScript::-1::1763691598::0::1::::<>Node<>::
@@ -2191,7 +2191,7 @@ Config.gd::GDScript::-1::1763690076::0::1::::<>Node<>::
 DataCache.gd::GDScript::-1::1763581049::0::1::::<>Node<>::
 ErrorTracker.gd::GDScript::-1::1763581879::0::1::::<>Node<>::
 Event.gd::GDScript::-1::1763580024::0::1::::Event<>RefCounted<>::
-EventDetailScreen.gd::GDScript::-1::1763691572::0::1::::<>Control<>::
+EventDetailScreen.gd::GDScript::-1::1763696569::0::1::::<>Control<>::
 EventFormScreen.gd::GDScript::-1::1763681051::0::1::::<>Control<>::
 EventItem.gd::GDScript::-1::1763580495::0::1::::<>Panel<>::
 EventListScreen.gd::GDScript::-1::1763693298::0::1::::<>Control<>::
