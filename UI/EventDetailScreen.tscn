@@ -1,0 +1,179 @@
+[gd_scene load_steps=2 format=3 uid="uid://f1k6l7m8n9o0p"]
+
+[ext_resource type="Script" path="res://Scripts/EventDetailScreen.gd" id="1_eventdetail"]
+
+[node name="EventDetailScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eventdetail")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12, 0.14, 0.18, 1)
+
+[node name="TopBar" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 120.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+
+[node name="MarginLeft" type="Control" parent="TopBar"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="TopBar"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "← Back"
+
+[node name="Spacer" type="Control" parent="TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EditButton" type="Button" parent="TopBar"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Edit"
+
+[node name="DeleteButton" type="Button" parent="TopBar"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Delete"
+
+[node name="MarginRight" type="Control" parent="TopBar"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 130.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 25
+
+[node name="TopMargin" type="Control" parent="ScrollContainer/VBox"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Event Title"
+autowrap_mode = 3
+horizontal_alignment = 1
+
+[node name="Category" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Category"
+horizontal_alignment = 1
+
+[node name="Separator1" type="HSeparator" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="DateTimeSection" type="VBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/VBox/DateTimeSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "📅 Date & Time"
+
+[node name="DateTime" type="Label" parent="ScrollContainer/VBox/DateTimeSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+text = "Date and time info"
+autowrap_mode = 3
+
+[node name="LocationSection" type="VBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/VBox/LocationSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "📍 Location"
+
+[node name="Location" type="Label" parent="ScrollContainer/VBox/LocationSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+text = "Location info"
+autowrap_mode = 3
+
+[node name="OrganizerSection" type="VBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/VBox/OrganizerSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "👤 Organized by"
+
+[node name="Organizer" type="Label" parent="ScrollContainer/VBox/OrganizerSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+text = "Organizer name"
+autowrap_mode = 3
+
+[node name="ContactSection" type="VBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="ScrollContainer/VBox/ContactSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "📞 Contact Info"
+
+[node name="Contact" type="Label" parent="ScrollContainer/VBox/ContactSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+text = "Contact information"
+autowrap_mode = 3
+
+[node name="Separator2" type="HSeparator" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="DescriptionSection" type="VBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="ScrollContainer/VBox/DescriptionSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Description"
+
+[node name="Description" type="Label" parent="ScrollContainer/VBox/DescriptionSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+text = "Event description goes here..."
+autowrap_mode = 3
+
+[node name="BottomMargin" type="Control" parent="ScrollContainer/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2

@@ -1,0 +1,8 @@
+res://Assets/theme.tres::09ddd9d9bb1ce3bb57a6825592aeac0c::1763577512::res://.godot/exported/133200997/export-4fa1089eeb057f9191e54c5fdd701509-theme.res
+res://Scenes/Main.tscn::78e21961f4db08a2af743911b38d6f94::1763681166::res://.godot/exported/133200997/export-a8e1520d83f25710dd4e3da8c6f32601-Main.scn
+res://UI/EventDetailScreen.tscn::5f260f705d981cfa47c4175a21fa68bb::1763601543::res://.godot/exported/133200997/export-ad150ef838bdeb9f1c96833a8b685060-EventDetailScreen.scn
+res://UI/EventFormScreen.tscn::737e73ce3eb76381582bd326ec23091c::1763673340::res://.godot/exported/133200997/export-66a618c96ee06d9ad18cf2f1b702e16c-EventFormScreen.scn
+res://UI/EventItem.tscn::59dc552e747c135fefaad95e7b2394ef::1763601926::res://.godot/exported/133200997/export-dda9bff344ff9704987fb6bba2085f8f-EventItem.scn
+res://UI/EventListScreen.tscn::c17be4efc55150facdc69be41c77b111::1763677302::res://.godot/exported/133200997/export-524f62c0798ebb90b02a41485ba90465-EventListScreen.scn
+res://UI/LoginScreen.tscn::80328cafc5b571d8cfee970d666c7045::1763666424::res://.godot/exported/133200997/export-8ffd56e5672b178c251b49bac14f100c-LoginScreen.scn
+res://UI/ProfileSettings.tscn::054e8d43a3c43edaaccd81d9b1844a2b::1763665894::res://.godot/exported/133200997/export-9f8e88af4dbbc6cb599ba20efbf3b3d6-ProfileSettings.scn

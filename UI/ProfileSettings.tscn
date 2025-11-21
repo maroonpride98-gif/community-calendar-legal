@@ -1,0 +1,371 @@
+[gd_scene load_steps=6 format=3 uid="uid://profile_settings_scene"]
+
+[ext_resource type="Script" path="res://Scripts/ProfileSettings.gd" id="1_profile"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.05, 0.05, 0.12, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.84, 0.35, 0.8)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(1, 0.84, 0.35, 0.4)
+shadow_size = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
+bg_color = Color(0.1, 0.1, 0.15, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.84, 0.35, 0.5)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(1, 0.84, 0.35, 0.3)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.84, 0.35, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+bg_color = Color(1, 0.84, 0.35, 0.5)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.84, 0.35, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="ProfileSettings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_profile")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.02, 0.08, 1)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -850.0
+offset_right = 500.0
+offset_bottom = 850.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+
+[node name="TopMargin" type="Control" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 48
+text = "⚙️ PROFILE SETTINGS"
+horizontal_alignment = 1
+
+[node name="Separator1" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ProfileSection" type="VBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="ProfilePicture" type="ColorRect" parent="Panel/VBox/ProfileSection"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+color = Color(0.2, 0.2, 0.25, 1)
+
+[node name="ProfileIcon" type="Label" parent="Panel/VBox/ProfileSection/ProfilePicture"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 120
+text = "👤"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UsernameLabel" type="Label" parent="Panel/VBox/ProfileSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 36
+text = "Username"
+horizontal_alignment = 1
+
+[node name="EmailLabel" type="Label" parent="Panel/VBox/ProfileSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.85, 1)
+theme_override_font_sizes/font_size = 28
+text = "email@example.com"
+horizontal_alignment = 1
+
+[node name="UploadPhotoButton" type="Button" parent="Panel/VBox/ProfileSection"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+text = "📷 Upload Photo"
+
+[node name="Separator2" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SettingsSection" type="VBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SectionTitle" type="Label" parent="Panel/VBox/SettingsSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 32
+text = "ACCOUNT SETTINGS"
+
+[node name="UsernameRow" type="HBoxContainer" parent="Panel/VBox/SettingsSection"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Spacer1" type="Control" parent="Panel/VBox/SettingsSection/UsernameRow"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="UsernameLabel" type="Label" parent="Panel/VBox/SettingsSection/UsernameRow"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 28
+text = "Username:"
+vertical_alignment = 1
+
+[node name="UsernameInput" type="LineEdit" parent="Panel/VBox/SettingsSection/UsernameRow"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/focus = SubResource("StyleBoxFlat_input")
+placeholder_text = "Enter username"
+
+[node name="Spacer2" type="Control" parent="Panel/VBox/SettingsSection/UsernameRow"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="EmailRow" type="HBoxContainer" parent="Panel/VBox/SettingsSection"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Spacer1" type="Control" parent="Panel/VBox/SettingsSection/EmailRow"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="EmailLabel" type="Label" parent="Panel/VBox/SettingsSection/EmailRow"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 28
+text = "Email:"
+vertical_alignment = 1
+
+[node name="EmailInput" type="LineEdit" parent="Panel/VBox/SettingsSection/EmailRow"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/focus = SubResource("StyleBoxFlat_input")
+placeholder_text = "Enter email"
+
+[node name="Spacer2" type="Control" parent="Panel/VBox/SettingsSection/EmailRow"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="ZipCodeRow" type="HBoxContainer" parent="Panel/VBox/SettingsSection"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Spacer1" type="Control" parent="Panel/VBox/SettingsSection/ZipCodeRow"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="ZipCodeLabel" type="Label" parent="Panel/VBox/SettingsSection/ZipCodeRow"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 28
+text = "Zip Code:"
+vertical_alignment = 1
+
+[node name="ZipCodeInput" type="LineEdit" parent="Panel/VBox/SettingsSection/ZipCodeRow"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/focus = SubResource("StyleBoxFlat_input")
+placeholder_text = "73000-74999"
+max_length = 5
+
+[node name="Spacer2" type="Control" parent="Panel/VBox/SettingsSection/ZipCodeRow"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Separator3" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ThemeSection" type="VBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SectionTitle" type="Label" parent="Panel/VBox/ThemeSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 32
+text = "THEME CUSTOMIZATION"
+
+[node name="PrimaryColorRow" type="HBoxContainer" parent="Panel/VBox/ThemeSection"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Spacer1" type="Control" parent="Panel/VBox/ThemeSection/PrimaryColorRow"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="ColorLabel" type="Label" parent="Panel/VBox/ThemeSection/PrimaryColorRow"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 28
+text = "Primary (Gold):"
+vertical_alignment = 1
+
+[node name="ColorPicker" type="ColorPickerButton" parent="Panel/VBox/ThemeSection/PrimaryColorRow"]
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 2
+color = Color(1, 0.84, 0.35, 1)
+
+[node name="Spacer2" type="Control" parent="Panel/VBox/ThemeSection/PrimaryColorRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SecondaryColorRow" type="HBoxContainer" parent="Panel/VBox/ThemeSection"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Spacer1" type="Control" parent="Panel/VBox/ThemeSection/SecondaryColorRow"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="ColorLabel" type="Label" parent="Panel/VBox/ThemeSection/SecondaryColorRow"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 28
+text = "Secondary (Black):"
+vertical_alignment = 1
+
+[node name="ColorPicker" type="ColorPickerButton" parent="Panel/VBox/ThemeSection/SecondaryColorRow"]
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 2
+color = Color(0.05, 0.05, 0.12, 1)
+
+[node name="Spacer2" type="Control" parent="Panel/VBox/ThemeSection/SecondaryColorRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResetThemeButton" type="Button" parent="Panel/VBox/ThemeSection"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+text = "🔄 Reset Theme to Default"
+
+[node name="StatusLabel" type="Label" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.85, 1)
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="BackButton" type="Button" parent="Panel/VBox/ButtonRow"]
+custom_minimum_size = Vector2(250, 70)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.85, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+text = "⬅️ BACK"
+
+[node name="SaveButton" type="Button" parent="Panel/VBox/ButtonRow"]
+custom_minimum_size = Vector2(250, 70)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+text = "💾 SAVE"
+
+[node name="BottomMargin" type="Control" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2

@@ -21,6 +21,8 @@ var comments_container: VBoxContainer
 var comment_input: TextEdit
 var comment_submit_button: Button
 var comments_list: VBoxContainer
+var discussion_board_button: Button
+var comments_panel: PanelContainer
 
 func _ready():
 	back_button.pressed.connect(_on_back_pressed)
@@ -35,6 +37,9 @@ func _ready():
 
 	# Create comments section
 	_create_comments_section()
+
+	# Create "See Discussion Board" button
+	_create_discussion_button()
 
 func set_event(event: Event):
 	current_event = event
@@ -149,7 +154,7 @@ func _on_event_deleted(success: bool):
 
 func _create_comments_section():
 	# Create main comments container with panel background
-	var comments_panel = PanelContainer.new()
+	comments_panel = PanelContainer.new()
 	comments_panel.name = "CommentsPanel"
 
 	# Create stylebox for the panel
@@ -597,3 +602,116 @@ func _show_error_toast(message: String):
 	await get_tree().create_timer(3.0).timeout
 	if toast:
 		toast.queue_free()
+
+func _create_discussion_button():
+	# Create a container for the button
+	var button_container = PanelContainer.new()
+	button_container.name = "DiscussionButtonContainer"
+
+	# Style the container with high-tech theme
+	var container_style = StyleBoxFlat.new()
+	container_style.bg_color = Color(0.08, 0.08, 0.15, 0.95)
+	container_style.border_width_left = 3
+	container_style.border_width_right = 3
+	container_style.border_width_top = 3
+	container_style.border_width_bottom = 3
+	container_style.border_color = Color(0.3, 0.6, 1.0, 0.7)  # Blue-cyan border
+	container_style.corner_radius_top_left = 15
+	container_style.corner_radius_top_right = 15
+	container_style.corner_radius_bottom_left = 15
+	container_style.corner_radius_bottom_right = 15
+	container_style.content_margin_left = 20
+	container_style.content_margin_right = 20
+	container_style.content_margin_top = 15
+	container_style.content_margin_bottom = 15
+	container_style.shadow_size = 10
+	container_style.shadow_color = Color(0.3, 0.6, 1.0, 0.3)
+	button_container.add_theme_stylebox_override("panel", container_style)
+
+	# Create the button
+	discussion_board_button = Button.new()
+	discussion_board_button.text = "💬 See Discussion Board"
+	discussion_board_button.custom_minimum_size = Vector2(0, 80)
+
+	# Style the button with neon glow
+	var button_style_normal = StyleBoxFlat.new()
+	button_style_normal.bg_color = Color(0.2, 0.5, 1.0, 0.9)  # Bright blue
+	button_style_normal.corner_radius_top_left = 12
+	button_style_normal.corner_radius_top_right = 12
+	button_style_normal.corner_radius_bottom_left = 12
+	button_style_normal.corner_radius_bottom_right = 12
+	button_style_normal.border_width_left = 2
+	button_style_normal.border_width_right = 2
+	button_style_normal.border_width_top = 2
+	button_style_normal.border_width_bottom = 2
+	button_style_normal.border_color = Color(0.4, 0.7, 1.0, 1.0)
+	button_style_normal.shadow_size = 15
+	button_style_normal.shadow_color = Color(0.2, 0.5, 1.0, 0.5)
+
+	var button_style_hover = StyleBoxFlat.new()
+	button_style_hover.bg_color = Color(0.3, 0.6, 1.0, 1.0)  # Lighter blue on hover
+	button_style_hover.corner_radius_top_left = 12
+	button_style_hover.corner_radius_top_right = 12
+	button_style_hover.corner_radius_bottom_left = 12
+	button_style_hover.corner_radius_bottom_right = 12
+	button_style_hover.border_width_left = 2
+	button_style_hover.border_width_right = 2
+	button_style_hover.border_width_top = 2
+	button_style_hover.border_width_bottom = 2
+	button_style_hover.border_color = Color(0.5, 0.8, 1.0, 1.0)
+	button_style_hover.shadow_size = 25
+	button_style_hover.shadow_color = Color(0.3, 0.6, 1.0, 0.7)
+
+	var button_style_pressed = StyleBoxFlat.new()
+	button_style_pressed.bg_color = Color(0.15, 0.4, 0.8, 1.0)  # Darker blue when pressed
+	button_style_pressed.corner_radius_top_left = 12
+	button_style_pressed.corner_radius_top_right = 12
+	button_style_pressed.corner_radius_bottom_left = 12
+	button_style_pressed.corner_radius_bottom_right = 12
+	button_style_pressed.border_width_left = 2
+	button_style_pressed.border_width_right = 2
+	button_style_pressed.border_width_top = 2
+	button_style_pressed.border_width_bottom = 2
+	button_style_pressed.border_color = Color(0.3, 0.5, 0.9, 1.0)
+	button_style_pressed.shadow_size = 10
+	button_style_pressed.shadow_color = Color(0.2, 0.5, 1.0, 0.4)
+
+	discussion_board_button.add_theme_stylebox_override("normal", button_style_normal)
+	discussion_board_button.add_theme_stylebox_override("hover", button_style_hover)
+	discussion_board_button.add_theme_stylebox_override("pressed", button_style_pressed)
+	discussion_board_button.add_theme_font_size_override("font_size", 32)
+	discussion_board_button.add_theme_color_override("font_color", Color.WHITE)
+
+	# Connect button to scroll function
+	discussion_board_button.pressed.connect(_on_discussion_button_pressed)
+
+	button_container.add_child(discussion_board_button)
+
+	# Add to VBox after description section
+	var vbox = $ScrollContainer/VBox
+	# Insert before the divider that comes before comments
+	var insert_index = vbox.get_child_count() - 2  # Before divider and comments panel
+	vbox.add_child(button_container)
+	vbox.move_child(button_container, insert_index)
+
+	# Add spacing before button
+	var spacer_before = Control.new()
+	spacer_before.custom_minimum_size = Vector2(0, 30)
+	vbox.add_child(spacer_before)
+	vbox.move_child(spacer_before, insert_index)
+
+func _on_discussion_button_pressed():
+	# Scroll to the comments panel
+	if comments_panel:
+		# Wait a frame for layout to update
+		await get_tree().process_frame
+
+		# Get the position of the comments panel
+		var target_position = comments_panel.position.y
+
+		# Scroll to it smoothly
+		var tween = create_tween()
+		tween.tween_property(scroll_container, "scroll_vertical", int(target_position), 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+		# Visual feedback
+		_show_success_toast("📍 Scrolled to Discussion Board")

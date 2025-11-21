@@ -1,0 +1,258 @@
+[gd_scene load_steps=7 format=3 uid="uid://e0j5k6l7m8n9o"]
+
+[ext_resource type="Script" path="res://Scripts/EventItem.gd" id="1_eventitem"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+bg_color = Color(0.05, 0.05, 0.12, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 1, 0.5)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 1, 1, 0.3)
+shadow_size = 12
+shadow_offset = Vector2(0, 0)
+anti_aliasing = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_accent"]
+bg_color = Color(0, 1, 1, 0.8)
+corner_radius_top_left = 0
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 0
+shadow_color = Color(0, 1, 1, 0.6)
+shadow_size = 8
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rsvp"]
+bg_color = Color(0, 0.8, 1, 0.15)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 1, 1, 0.6)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rsvp_active"]
+bg_color = Color(0, 1, 1, 0.3)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 1, 1, 0.5)
+shadow_size = 8
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_badge"]
+bg_color = Color(0, 1, 0.5, 0.2)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 1, 0.5, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="EventItem" type="Panel"]
+custom_minimum_size = Vector2(0, 420)
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+script = ExtResource("1_eventitem")
+
+[node name="Content" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="AccentBar" type="Panel" parent="Content"]
+custom_minimum_size = Vector2(6, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_accent")
+
+[node name="MainContent" type="MarginContainer" parent="Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 25
+
+[node name="VBox" type="VBoxContainer" parent="Content/MainContent"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="HeaderRow" type="HBoxContainer" parent="Content/MainContent/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TitleColumn" type="VBoxContainer" parent="Content/MainContent/VBox/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="Title" type="Label" parent="Content/MainContent/VBox/HeaderRow/TitleColumn"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 1, 1, 0.4)
+theme_override_constants/shadow_outline_size = 4
+theme_override_font_sizes/font_size = 48
+text = "EVENT TITLE"
+autowrap_mode = 3
+uppercase = true
+
+[node name="Category" type="Label" parent="Content/MainContent/VBox/HeaderRow/TitleColumn"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 1, 0.9)
+theme_override_font_sizes/font_size = 26
+text = "⟫ CATEGORY"
+uppercase = true
+
+[node name="BadgesColumn" type="VBoxContainer" parent="Content/MainContent/VBox/HeaderRow"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StatusBadge" type="Panel" parent="Content/MainContent/VBox/HeaderRow/BadgesColumn"]
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_badge")
+
+[node name="Label" type="Label" parent="Content/MainContent/VBox/HeaderRow/BadgesColumn/StatusBadge"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 1, 0.5, 1)
+theme_override_font_sizes/font_size = 30
+text = "◉ LIVE"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="FavoriteButton" type="Button" parent="Content/MainContent/VBox/HeaderRow/BadgesColumn"]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 1, 0.8)
+theme_override_font_sizes/font_size = 32
+text = "☆"
+flat = true
+
+[node name="Sep1" type="HSeparator" parent="Content/MainContent/VBox"]
+layout_mode = 2
+theme_override_colors/separator = Color(0, 1, 1, 0.2)
+
+[node name="CountdownRow" type="HBoxContainer" parent="Content/MainContent/VBox"]
+layout_mode = 2
+
+[node name="CountdownLabel" type="Label" parent="Content/MainContent/VBox/CountdownRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "⏱ 3 DAYS"
+
+[node name="Spacer" type="Control" parent="Content/MainContent/VBox/CountdownRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AttendeeLabel" type="Label" parent="Content/MainContent/VBox/CountdownRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0.8, 1)
+theme_override_font_sizes/font_size = 28
+text = "◈ 24 GOING"
+
+[node name="InfoGrid" type="HBoxContainer" parent="Content/MainContent/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="LeftColumn" type="VBoxContainer" parent="Content/MainContent/VBox/InfoGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="DateTime" type="Label" parent="Content/MainContent/VBox/InfoGrid/LeftColumn"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "⟫ DATE & TIME"
+
+[node name="Location" type="Label" parent="Content/MainContent/VBox/InfoGrid/LeftColumn"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "⟫ LOCATION"
+
+[node name="RightColumn" type="VBoxContainer" parent="Content/MainContent/VBox/InfoGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Organizer" type="Label" parent="Content/MainContent/VBox/InfoGrid/RightColumn"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.8, 0.9, 1)
+theme_override_font_sizes/font_size = 27
+text = "⟫ ORGANIZER"
+
+[node name="Capacity" type="Label" parent="Content/MainContent/VBox/InfoGrid/RightColumn"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.5, 0.8, 1)
+theme_override_font_sizes/font_size = 26
+text = "⟫ 50 SPOTS LEFT"
+
+[node name="Sep2" type="HSeparator" parent="Content/MainContent/VBox"]
+layout_mode = 2
+theme_override_colors/separator = Color(0, 1, 1, 0.15)
+
+[node name="RSVPRow" type="HBoxContainer" parent="Content/MainContent/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="GoingButton" type="Button" parent="Content/MainContent/VBox/RSVPRow"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 1, 0.8, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_rsvp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rsvp_active")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rsvp_active")
+text = "✓ GOING"
+
+[node name="InterestedButton" type="Button" parent="Content/MainContent/VBox/RSVPRow"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_rsvp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rsvp_active")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rsvp_active")
+text = "★ INTERESTED"
+
+[node name="ShareButton" type="Button" parent="Content/MainContent/VBox/RSVPRow"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 1, 0.9)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_rsvp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rsvp_active")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rsvp_active")
+text = "⤴ SHARE"

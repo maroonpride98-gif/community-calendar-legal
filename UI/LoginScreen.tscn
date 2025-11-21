@@ -1,0 +1,493 @@
+[gd_scene load_steps=11 format=3 uid="uid://c8h3k2m4n5p6q"]
+
+[ext_resource type="Script" path="res://Scripts/LoginScreen.gd" id="1_login"]
+[ext_resource type="Texture2D" uid="uid://bd05yyyxki6p1" path="res://Assets/Logo/eventhive_logo.png" id="2_logo"]
+
+[sub_resource type="Gradient" id="Gradient_bg"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.05, 0.05, 0.12, 1, 0.08, 0.08, 0.15, 1, 0.02, 0.02, 0.08, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bg"]
+gradient = SubResource("Gradient_bg")
+fill_from = Vector2(0, 0)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_cyber"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(0, 1, 1, 0.1, 1, 0, 1, 0.1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cyber"]
+gradient = SubResource("Gradient_cyber")
+fill_from = Vector2(0, 0)
+fill_to = Vector2(1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.08, 0.08, 0.15, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 1, 0.6)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 1, 1, 0.4)
+shadow_size = 20
+shadow_offset = Vector2(0, 0)
+anti_aliasing = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(0, 0.8, 1, 0.2)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 1, 0.8)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 1, 1, 0.6)
+shadow_size = 15
+shadow_offset = Vector2(0, 0)
+anti_aliasing = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+bg_color = Color(0, 1, 1, 0.35)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 1, 1, 0.8)
+shadow_size = 25
+shadow_offset = Vector2(0, 0)
+anti_aliasing = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
+bg_color = Color(0.05, 0.05, 0.12, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.8, 1, 0.4)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+anti_aliasing = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input_focus"]
+bg_color = Color(0.05, 0.05, 0.12, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 1, 1, 0.3)
+shadow_size = 8
+shadow_offset = Vector2(0, 0)
+anti_aliasing = true
+
+[node name="LoginScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_login")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_bg")
+
+[node name="CyberGrid" type="TextureRect" parent="."]
+modulate = Color(0, 1, 1, 0.05)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_cyber")
+
+[node name="LoginPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -520.0
+offset_right = 340.0
+offset_bottom = 520.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="LoginPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 40
+
+[node name="VBox" type="VBoxContainer" parent="LoginPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="IconSpacer" type="Control" parent="LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Logo" type="TextureRect" parent="LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2_logo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="LoginPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.65, 0.15, 0.5)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 52
+text = "EVENTHIVE"
+horizontal_alignment = 1
+autowrap_mode = 2
+uppercase = true
+
+[node name="Subtitle" type="Label" parent="LoginPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 0.8)
+theme_override_font_sizes/font_size = 28
+text = "// DISCOVER LOCAL EVENTS //"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Spacer1" type="Control" parent="LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+
+[node name="EmailLabel" type="Label" parent="LoginPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+text = "⟫ EMAIL IDENTIFIER"
+uppercase = true
+
+[node name="EmailInput" type="LineEdit" parent="LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 85)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/focus = SubResource("StyleBoxFlat_input_focus")
+placeholder_text = "user@network.sys"
+editable = true
+context_menu_enabled = true
+selecting_enabled = true
+
+[node name="PasswordLabel" type="Label" parent="LoginPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+text = "⟫ PASSWORD"
+uppercase = true
+
+[node name="PasswordInput" type="LineEdit" parent="LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 85)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/focus = SubResource("StyleBoxFlat_input_focus")
+placeholder_text = "••••••••••"
+secret = true
+editable = true
+context_menu_enabled = true
+selecting_enabled = true
+
+[node name="ErrorLabel" type="Label" parent="LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.2, 0.4, 1)
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+uppercase = true
+
+[node name="ForgotPasswordButton" type="Button" parent="LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0, 0.9)
+theme_override_font_sizes/font_size = 24
+text = "⟫ FORGOT PASSWORD?"
+flat = true
+
+[node name="Spacer2" type="Control" parent="LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="LoginButton" type="Button" parent="LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_hover")
+text = "⟫ INITIALIZE ACCESS"
+flat = false
+
+[node name="Spacer3" type="Control" parent="LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Divider" type="HSeparator" parent="LoginPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/separator = Color(0, 1, 1, 0.3)
+
+[node name="Spacer4" type="Control" parent="LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="ShowRegisterButton" type="Button" parent="LoginPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 1, 0.9)
+theme_override_font_sizes/font_size = 28
+text = "⟫ JOIN EVENTHIVE"
+flat = true
+
+[node name="RegisterPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -650.0
+offset_right = 340.0
+offset_bottom = 650.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="RegisterPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 35
+
+[node name="VBox" type="VBoxContainer" parent="RegisterPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="IconSpacer" type="Control" parent="RegisterPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="Logo" type="TextureRect" parent="RegisterPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 2
+texture = ExtResource("2_logo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="RegisterPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.65, 0.15, 0.5)
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 46
+text = "JOIN EVENTHIVE"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Subtitle" type="Label" parent="RegisterPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 0.8)
+theme_override_font_sizes/font_size = 26
+text = "// CREATE YOUR ACCOUNT //"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Spacer1" type="Control" parent="RegisterPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="UsernameLabel" type="Label" parent="RegisterPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "⟫ USERNAME"
+uppercase = true
+
+[node name="UsernameInput" type="LineEdit" parent="RegisterPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/focus = SubResource("StyleBoxFlat_input_focus")
+placeholder_text = "username"
+editable = true
+context_menu_enabled = true
+selecting_enabled = true
+
+[node name="EmailLabel" type="Label" parent="RegisterPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "⟫ EMAIL"
+uppercase = true
+
+[node name="EmailInput" type="LineEdit" parent="RegisterPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/focus = SubResource("StyleBoxFlat_input_focus")
+placeholder_text = "user@network.sys"
+editable = true
+context_menu_enabled = true
+selecting_enabled = true
+
+[node name="ZipCodeLabel" type="Label" parent="RegisterPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "⟫ OKLAHOMA ZIP CODE"
+uppercase = true
+
+[node name="ZipCodeInput" type="LineEdit" parent="RegisterPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/focus = SubResource("StyleBoxFlat_input_focus")
+placeholder_text = "73000-74999"
+max_length = 5
+editable = true
+context_menu_enabled = true
+selecting_enabled = true
+
+[node name="PasswordLabel" type="Label" parent="RegisterPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "⟫ PASSWORD"
+uppercase = true
+
+[node name="PasswordInput" type="LineEdit" parent="RegisterPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/focus = SubResource("StyleBoxFlat_input_focus")
+placeholder_text = "min 6 characters"
+secret = true
+editable = true
+context_menu_enabled = true
+selecting_enabled = true
+
+[node name="ConfirmLabel" type="Label" parent="RegisterPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "⟫ CONFIRM PASSWORD"
+uppercase = true
+
+[node name="ConfirmPasswordInput" type="LineEdit" parent="RegisterPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/focus = SubResource("StyleBoxFlat_input_focus")
+placeholder_text = "re-enter key"
+secret = true
+editable = true
+context_menu_enabled = true
+selecting_enabled = true
+
+[node name="ErrorLabel" type="Label" parent="RegisterPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.2, 0.4, 1)
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+uppercase = true
+
+[node name="Spacer2" type="Control" parent="RegisterPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="RegisterButton" type="Button" parent="RegisterPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_hover")
+text = "⟫ CREATE PROFILE"
+
+[node name="Spacer3" type="Control" parent="RegisterPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="Divider" type="HSeparator" parent="RegisterPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_colors/separator = Color(0, 1, 1, 0.3)
+
+[node name="Spacer4" type="Control" parent="RegisterPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="ShowLoginButton" type="Button" parent="RegisterPanel/MarginContainer/VBox"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 1, 0.9)
+theme_override_font_sizes/font_size = 19
+text = "⟫ EXISTING USER LOGIN"
+flat = true
