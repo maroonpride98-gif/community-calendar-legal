@@ -1,0 +1,449 @@
+[gd_scene load_steps=15 format=3 uid="uid://d9i4j5k6l7m8n"]
+
+[ext_resource type="Script" path="res://Scripts/EventListScreen.gd" id="1_eventlist"]
+[ext_resource type="Texture2D" uid="uid://bd05yyyxki6p1" path="res://Assets/Logo/eventhive_logo.png" id="2_logo"]
+
+[sub_resource type="Gradient" id="Gradient_bg"]
+offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
+colors = PackedColorArray(0.02, 0.02, 0.08, 1, 0.05, 0.05, 0.15, 1, 0.08, 0.05, 0.12, 1, 0.03, 0.03, 0.1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bg"]
+gradient = SubResource("Gradient_bg")
+fill_from = Vector2(0, 0)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_topbar"]
+bg_color = Color(0.08, 0.08, 0.15, 0.85)
+border_width_left = 2
+border_width_top = 0
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0, 1, 1, 0.4)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+shadow_color = Color(0, 1, 1, 0.2)
+shadow_size = 15
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
+bg_color = Color(0.12, 0.12, 0.2, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.8, 1, 0.6)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_color = Color(0.4, 0.8, 1, 0.15)
+shadow_size = 8
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input_focus"]
+bg_color = Color(0.15, 0.15, 0.25, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 1, 1, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_color = Color(0, 1, 1, 0.4)
+shadow_size = 15
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(1, 0.5, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.8, 0.2, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(1, 0.5, 0, 0.6)
+shadow_size = 20
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+bg_color = Color(1, 0.6, 0.1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.9, 0.3, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(1, 0.6, 0.1, 0.9)
+shadow_size = 30
+shadow_offset = Vector2(0, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_pressed"]
+bg_color = Color(1, 0.7, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 0.5, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(1, 0.7, 0.2, 0.5)
+shadow_size = 10
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_profile"]
+bg_color = Color(0.15, 0.15, 0.25, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.84, 0.35, 0.7)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+shadow_color = Color(1, 0.84, 0.35, 0.3)
+shadow_size = 10
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_profile_hover"]
+bg_color = Color(0.2, 0.2, 0.3, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.84, 0.35, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+shadow_color = Color(1, 0.84, 0.35, 0.6)
+shadow_size = 18
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bottombar"]
+bg_color = Color(0.08, 0.08, 0.15, 0.9)
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 0
+border_color = Color(1, 0.5, 0, 0.5)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+shadow_color = Color(1, 0.5, 0, 0.25)
+shadow_size = 15
+shadow_offset = Vector2(0, -5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_checkbox"]
+bg_color = Color(0.12, 0.12, 0.2, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0, 1, 0.5)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="EventListScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eventlist")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_bg")
+
+[node name="TopBarPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 280.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_topbar")
+
+[node name="TopBarContent" type="VBoxContainer" parent="TopBarPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="TopMargin" type="Control" parent="TopBarPanel/TopBarContent"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="HeaderRow" type="HBoxContainer" parent="TopBarPanel/TopBarContent"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="LeftSpacer" type="Control" parent="TopBarPanel/TopBarContent/HeaderRow"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="LogoContainer" type="HBoxContainer" parent="TopBarPanel/TopBarContent/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="LogoImage" type="TextureRect" parent="TopBarPanel/TopBarContent/HeaderRow/LogoContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("2_logo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Spacer" type="Control" parent="TopBarPanel/TopBarContent/HeaderRow/LogoContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+
+[node name="LogoText" type="Label" parent="TopBarPanel/TopBarContent/HeaderRow/LogoContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_colors/font_outline_color = Color(1, 0.5, 0, 0.5)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 60
+text = "EventHive"
+vertical_alignment = 1
+
+[node name="ProfileButton" type="Button" parent="TopBarPanel/TopBarContent/HeaderRow"]
+custom_minimum_size = Vector2(85, 85)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0.5, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_profile")
+theme_override_styles/hover = SubResource("StyleBoxFlat_profile_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_profile_hover")
+text = "👤"
+
+[node name="RightSpacer" type="Control" parent="TopBarPanel/TopBarContent/HeaderRow"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="SearchRow" type="HBoxContainer" parent="TopBarPanel/TopBarContent"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="LeftSpacer" type="Control" parent="TopBarPanel/TopBarContent/SearchRow"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="SearchBar" type="LineEdit" parent="TopBarPanel/TopBarContent/SearchRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.9, 0.9, 1, 1)
+theme_override_colors/font_placeholder_color = Color(0.5, 0.7, 0.9, 0.6)
+theme_override_colors/caret_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/focus = SubResource("StyleBoxFlat_input_focus")
+placeholder_text = "🔍 Search events..."
+
+[node name="CategoryFilter" type="OptionButton" parent="TopBarPanel/TopBarContent/SearchRow"]
+custom_minimum_size = Vector2(280, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/hover = SubResource("StyleBoxFlat_input_focus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_input_focus")
+
+[node name="ZipCodeFilter" type="LineEdit" parent="TopBarPanel/TopBarContent/SearchRow"]
+custom_minimum_size = Vector2(320, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 1, 1)
+theme_override_colors/font_placeholder_color = Color(0.5, 0.9, 1, 0.6)
+theme_override_colors/caret_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/focus = SubResource("StyleBoxFlat_input_focus")
+placeholder_text = "📍 City or ZIP..."
+max_length = 50
+
+[node name="RefreshButton" type="Button" parent="TopBarPanel/TopBarContent/SearchRow"]
+custom_minimum_size = Vector2(75, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.5, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/hover = SubResource("StyleBoxFlat_input_focus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_input_focus")
+text = "↻"
+
+[node name="RightSpacer" type="Control" parent="TopBarPanel/TopBarContent/SearchRow"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="FilterRow" type="HBoxContainer" parent="TopBarPanel/TopBarContent"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LeftSpacer" type="Control" parent="TopBarPanel/TopBarContent/FilterRow"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="StatsLabel" type="Label" parent="TopBarPanel/TopBarContent/FilterRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0.5, 0.5, 0.5)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 28
+text = "◈ 0 EVENTS"
+vertical_alignment = 1
+
+[node name="StatsSpacer" type="Control" parent="TopBarPanel/TopBarContent/FilterRow"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="FavoritesToggle" type="CheckBox" parent="TopBarPanel/TopBarContent/FilterRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.5, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "★ FAVORITES"
+
+[node name="PastEventsToggle" type="CheckBox" parent="TopBarPanel/TopBarContent/FilterRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.8, 1, 1)
+theme_override_colors/font_hover_color = Color(0.8, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "⏱ PAST EVENTS"
+
+[node name="Spacer" type="Control" parent="TopBarPanel/TopBarContent/FilterRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SortLabel" type="Label" parent="TopBarPanel/TopBarContent/FilterRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+text = "⟫ SORT:"
+vertical_alignment = 1
+
+[node name="SortDropdown" type="OptionButton" parent="TopBarPanel/TopBarContent/FilterRow"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/hover = SubResource("StyleBoxFlat_input_focus")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_input_focus")
+selected = 0
+item_count = 3
+popup/item_0/text = "DATE (NEAREST)"
+popup/item_1/text = "POPULARITY"
+popup/item_1/id = 1
+popup/item_2/text = "ALPHABETICAL"
+popup/item_2/id = 2
+
+[node name="RightSpacer" type="Control" parent="TopBarPanel/TopBarContent/FilterRow"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 280.0
+offset_bottom = -150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EventList" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="TopSpacer" type="Control" parent="ScrollContainer/EventList"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="LoadingLabel" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -40.0
+offset_right = 150.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0.5, 0.5, 0.5)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 36
+text = "◈ Loading..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BottomBar" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bottombar")
+
+[node name="CreateButton" type="Button" parent="BottomBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -50.0
+offset_right = 280.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0.8, 1)
+theme_override_colors/font_outline_color = Color(0.5, 0.25, 0, 0.8)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+text = "✨ CREATE EVENT"

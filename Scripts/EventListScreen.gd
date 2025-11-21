@@ -99,20 +99,24 @@ func _show_welcome_screen():
 	logo.add_theme_font_size_override("font_size", 120)
 	welcome_screen.add_child(logo)
 
-	# Welcome Title
+	# Welcome Title - High-tech with glow
 	var title = Label.new()
-	title.text = "Welcome to EventHive"
+	title.text = "EVENTHIVE"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 48)
-	title.add_theme_color_override("font_color", Color(1, 0.84, 0.35, 1))  # Gold
+	title.add_theme_font_size_override("font_size", 52)
+	title.add_theme_color_override("font_color", Color(1, 0.5, 0, 1))  # Orange
+	title.add_theme_color_override("font_outline_color", Color(1, 0.8, 0.2, 0.8))  # Gold outline
+	title.add_theme_constant_override("outline_size", 4)
 	welcome_screen.add_child(title)
 
-	# Subtitle
+	# Subtitle - Cyan accent
 	var subtitle = Label.new()
-	subtitle.text = "Your Community, Your Events"
+	subtitle.text = "◈ Your Community, Your Events ◈"
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	subtitle.add_theme_font_size_override("font_size", 28)
-	subtitle.add_theme_color_override("font_color", Color(0.7, 0.7, 0.8, 1))
+	subtitle.add_theme_font_size_override("font_size", 30)
+	subtitle.add_theme_color_override("font_color", Color(0, 1, 1, 1))  # Cyan
+	subtitle.add_theme_color_override("font_outline_color", Color(0, 0.5, 0.5, 0.5))
+	subtitle.add_theme_constant_override("outline_size", 2)
 	welcome_screen.add_child(subtitle)
 
 	# Spacer
@@ -120,23 +124,26 @@ func _show_welcome_screen():
 	spacer1.custom_minimum_size = Vector2(0, 40)
 	welcome_screen.add_child(spacer1)
 
-	# Instructions Panel
+	# Instructions Panel - High-tech styling with neon glow
 	var instructions_panel = PanelContainer.new()
 	var panel_style = StyleBoxFlat.new()
-	panel_style.bg_color = Color(0.1, 0.1, 0.15, 0.8)
+	panel_style.bg_color = Color(0.08, 0.08, 0.15, 0.9)
 	panel_style.border_width_left = 3
 	panel_style.border_width_top = 3
 	panel_style.border_width_right = 3
 	panel_style.border_width_bottom = 3
-	panel_style.border_color = Color(1, 0.84, 0.35, 0.5)  # Gold border
-	panel_style.corner_radius_top_left = 15
-	panel_style.corner_radius_top_right = 15
-	panel_style.corner_radius_bottom_left = 15
-	panel_style.corner_radius_bottom_right = 15
-	panel_style.content_margin_left = 40
-	panel_style.content_margin_right = 40
-	panel_style.content_margin_top = 30
-	panel_style.content_margin_bottom = 30
+	panel_style.border_color = Color(0, 1, 1, 0.8)  # Cyan neon border
+	panel_style.corner_radius_top_left = 20
+	panel_style.corner_radius_top_right = 20
+	panel_style.corner_radius_bottom_left = 20
+	panel_style.corner_radius_bottom_right = 20
+	panel_style.shadow_color = Color(0, 1, 1, 0.4)  # Cyan glow
+	panel_style.shadow_size = 20
+	panel_style.shadow_offset = Vector2(0, 0)
+	panel_style.content_margin_left = 45
+	panel_style.content_margin_right = 45
+	panel_style.content_margin_top = 35
+	panel_style.content_margin_bottom = 35
 	instructions_panel.add_theme_stylebox_override("panel", panel_style)
 
 	var center_container = CenterContainer.new()
@@ -148,21 +155,23 @@ func _show_welcome_screen():
 	instructions_vbox.add_theme_constant_override("separation", 20)
 	instructions_panel.add_child(instructions_vbox)
 
-	# Instruction Title
+	# Instruction Title - Cyan neon theme
 	var instruction_title = Label.new()
-	instruction_title.text = "📍 Get Started"
+	instruction_title.text = "⚡ GET STARTED"
 	instruction_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	instruction_title.add_theme_font_size_override("font_size", 36)
-	instruction_title.add_theme_color_override("font_color", Color(1, 0.84, 0.35, 1))
+	instruction_title.add_theme_font_size_override("font_size", 38)
+	instruction_title.add_theme_color_override("font_color", Color(0, 1, 1, 1))  # Cyan
+	instruction_title.add_theme_color_override("font_outline_color", Color(0, 0.5, 0.5, 0.8))
+	instruction_title.add_theme_constant_override("outline_size", 3)
 	instructions_vbox.add_child(instruction_title)
 
 	# Instruction Text
 	var instruction_text = Label.new()
-	instruction_text.text = "To discover events in your area, enter your city name or ZIP code in the search bar above."
+	instruction_text.text = "Enter your CITY NAME or ZIP CODE in the search bar above to discover events in your area."
 	instruction_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	instruction_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	instruction_text.add_theme_font_size_override("font_size", 26)
-	instruction_text.add_theme_color_override("font_color", Color(0.9, 0.9, 0.95, 1))
+	instruction_text.add_theme_color_override("font_color", Color(0.85, 0.95, 1, 1))
 	instruction_text.custom_minimum_size = Vector2(700, 0)
 	instructions_vbox.add_child(instruction_text)
 
@@ -180,33 +189,44 @@ func _show_welcome_screen():
 		quick_access_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.8, 1))
 		instructions_vbox.add_child(quick_access_label)
 
-		# Quick access button
+		# Quick access button - High-tech orange glow
 		var btn_container = CenterContainer.new()
 		instructions_vbox.add_child(btn_container)
 
 		var quick_btn = Button.new()
-		quick_btn.text = "📍 Go to " + user_zip
-		quick_btn.custom_minimum_size = Vector2(350, 70)
-		quick_btn.add_theme_font_size_override("font_size", 28)
-		quick_btn.add_theme_color_override("font_color", Color(1, 0.84, 0.35, 1))
+		quick_btn.text = "🚀 JUMP TO " + user_zip
+		quick_btn.custom_minimum_size = Vector2(380, 75)
+		quick_btn.add_theme_font_size_override("font_size", 30)
+		quick_btn.add_theme_color_override("font_color", Color(1, 1, 1, 1))
 
-		# Style the button
+		# Style the button with orange neon glow
 		var btn_style = StyleBoxFlat.new()
-		btn_style.bg_color = Color(0.2, 0.2, 0.25, 1)
-		btn_style.border_width_left = 2
-		btn_style.border_width_top = 2
-		btn_style.border_width_right = 2
-		btn_style.border_width_bottom = 2
-		btn_style.border_color = Color(1, 0.84, 0.35, 1)
-		btn_style.corner_radius_top_left = 10
-		btn_style.corner_radius_top_right = 10
-		btn_style.corner_radius_bottom_left = 10
-		btn_style.corner_radius_bottom_right = 10
+		btn_style.bg_color = Color(1, 0.5, 0, 1)  # Orange
+		btn_style.border_width_left = 3
+		btn_style.border_width_top = 3
+		btn_style.border_width_right = 3
+		btn_style.border_width_bottom = 3
+		btn_style.border_color = Color(1, 0.8, 0.2, 1)
+		btn_style.corner_radius_top_left = 18
+		btn_style.corner_radius_top_right = 18
+		btn_style.corner_radius_bottom_left = 18
+		btn_style.corner_radius_bottom_right = 18
+		btn_style.shadow_color = Color(1, 0.5, 0, 0.6)
+		btn_style.shadow_size = 20
+		btn_style.shadow_offset = Vector2(0, 0)
 		quick_btn.add_theme_stylebox_override("normal", btn_style)
 
 		var btn_hover = btn_style.duplicate()
-		btn_hover.bg_color = Color(1, 0.84, 0.35, 0.3)
+		btn_hover.bg_color = Color(1, 0.6, 0.1, 1)
+		btn_hover.border_color = Color(1, 0.9, 0.3, 1)
+		btn_hover.shadow_color = Color(1, 0.6, 0.1, 0.9)
+		btn_hover.shadow_size = 30
 		quick_btn.add_theme_stylebox_override("hover", btn_hover)
+
+		var btn_pressed = btn_style.duplicate()
+		btn_pressed.bg_color = Color(1, 0.7, 0.2, 1)
+		btn_pressed.shadow_size = 10
+		quick_btn.add_theme_stylebox_override("pressed", btn_pressed)
 
 		quick_btn.pressed.connect(func():
 			# Set the zipcode and switch to city view
@@ -246,23 +266,26 @@ func _show_welcome_screen():
 		feature_box.custom_minimum_size = Vector2(250, 180)
 		feature_box.add_theme_constant_override("separation", 10)
 
-		# Feature panel
+		# Feature panel - High-tech with cyan/purple accents
 		var feature_panel = PanelContainer.new()
 		var feature_style = StyleBoxFlat.new()
-		feature_style.bg_color = Color(0.08, 0.08, 0.12, 0.9)
+		feature_style.bg_color = Color(0.06, 0.06, 0.12, 0.95)
 		feature_style.border_width_left = 2
 		feature_style.border_width_top = 2
 		feature_style.border_width_right = 2
 		feature_style.border_width_bottom = 2
-		feature_style.border_color = Color(0.3, 0.3, 0.4, 0.5)
-		feature_style.corner_radius_top_left = 12
-		feature_style.corner_radius_top_right = 12
-		feature_style.corner_radius_bottom_left = 12
-		feature_style.corner_radius_bottom_right = 12
-		feature_style.content_margin_left = 20
-		feature_style.content_margin_right = 20
-		feature_style.content_margin_top = 20
-		feature_style.content_margin_bottom = 20
+		feature_style.border_color = Color(0.3, 0.6, 1, 0.5)  # Blue-cyan border
+		feature_style.corner_radius_top_left = 15
+		feature_style.corner_radius_top_right = 15
+		feature_style.corner_radius_bottom_left = 15
+		feature_style.corner_radius_bottom_right = 15
+		feature_style.shadow_color = Color(0.3, 0.6, 1, 0.2)  # Subtle blue glow
+		feature_style.shadow_size = 10
+		feature_style.shadow_offset = Vector2(0, 2)
+		feature_style.content_margin_left = 22
+		feature_style.content_margin_right = 22
+		feature_style.content_margin_top = 22
+		feature_style.content_margin_bottom = 22
 		feature_panel.add_theme_stylebox_override("panel", feature_style)
 
 		var feature_vbox = VBoxContainer.new()
@@ -278,15 +301,17 @@ func _show_welcome_screen():
 		var feat_title = Label.new()
 		feat_title.text = feature["title"]
 		feat_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		feat_title.add_theme_font_size_override("font_size", 24)
-		feat_title.add_theme_color_override("font_color", Color(1, 0.84, 0.35, 1))
+		feat_title.add_theme_font_size_override("font_size", 25)
+		feat_title.add_theme_color_override("font_color", Color(0, 1, 1, 1))  # Cyan
+		feat_title.add_theme_color_override("font_outline_color", Color(0, 0.5, 0.5, 0.5))
+		feat_title.add_theme_constant_override("outline_size", 1)
 		feature_vbox.add_child(feat_title)
 
 		var feat_text = Label.new()
 		feat_text.text = feature["text"]
 		feat_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		feat_text.add_theme_font_size_override("font_size", 18)
-		feat_text.add_theme_color_override("font_color", Color(0.7, 0.7, 0.8, 1))
+		feat_text.add_theme_font_size_override("font_size", 19)
+		feat_text.add_theme_color_override("font_color", Color(0.75, 0.85, 1, 1))  # Light cyan-blue
 		feat_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		feature_vbox.add_child(feat_text)
 
