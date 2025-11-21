@@ -365,46 +365,68 @@ func set_user_data(user_data: Dictionary):
 	profile_button.tooltip_text = user_data.get("username", "Profile") + " - Click for settings"
 
 func _create_back_button():
-	"""Create a back to home button that appears when viewing events"""
+	"""Create a sleek back button near the profile icon"""
 	back_to_home_button = Button.new()
-	back_to_home_button.text = "🏠 Back to Home"
-	back_to_home_button.custom_minimum_size = Vector2(200, 60)
+	back_to_home_button.text = "🏠 Home"
+	back_to_home_button.custom_minimum_size = Vector2(110, 50)
 
-	# Style with high-tech cyan theme
+	# Sleek circular style matching profile button
 	var style_normal = StyleBoxFlat.new()
-	style_normal.bg_color = Color(0.1, 0.6, 0.8, 0.9)
-	style_normal.corner_radius_top_left = 10
-	style_normal.corner_radius_top_right = 10
-	style_normal.corner_radius_bottom_left = 10
-	style_normal.corner_radius_bottom_right = 10
+	style_normal.bg_color = Color(0.08, 0.08, 0.15, 0.95)
+	style_normal.corner_radius_top_left = 25
+	style_normal.corner_radius_top_right = 25
+	style_normal.corner_radius_bottom_left = 25
+	style_normal.corner_radius_bottom_right = 25
 	style_normal.border_width_left = 2
 	style_normal.border_width_right = 2
 	style_normal.border_width_top = 2
 	style_normal.border_width_bottom = 2
-	style_normal.border_color = Color(0, 1, 1, 0.8)
-	style_normal.shadow_size = 10
-	style_normal.shadow_color = Color(0, 1, 1, 0.4)
+	style_normal.border_color = Color(0, 1, 1, 0.6)
+	style_normal.shadow_size = 8
+	style_normal.shadow_color = Color(0, 1, 1, 0.3)
 
-	var style_hover = style_normal.duplicate()
-	style_hover.bg_color = Color(0.15, 0.7, 0.9, 1.0)
+	var style_hover = StyleBoxFlat.new()
+	style_hover.bg_color = Color(0.12, 0.12, 0.2, 1.0)
+	style_hover.corner_radius_top_left = 25
+	style_hover.corner_radius_top_right = 25
+	style_hover.corner_radius_bottom_left = 25
+	style_hover.corner_radius_bottom_right = 25
+	style_hover.border_width_left = 2
+	style_hover.border_width_right = 2
+	style_hover.border_width_top = 2
+	style_hover.border_width_bottom = 2
+	style_hover.border_color = Color(0, 1, 1, 1.0)
 	style_hover.shadow_size = 15
-	style_hover.shadow_color = Color(0, 1, 1, 0.6)
+	style_hover.shadow_color = Color(0, 1, 1, 0.5)
 
-	var style_pressed = style_normal.duplicate()
+	var style_pressed = StyleBoxFlat.new()
 	style_pressed.bg_color = Color(0.05, 0.5, 0.7, 1.0)
+	style_pressed.corner_radius_top_left = 25
+	style_pressed.corner_radius_top_right = 25
+	style_pressed.corner_radius_bottom_left = 25
+	style_pressed.corner_radius_bottom_right = 25
+	style_pressed.border_width_left = 2
+	style_pressed.border_width_right = 2
+	style_pressed.border_width_top = 2
+	style_pressed.border_width_bottom = 2
+	style_pressed.border_color = Color(0, 0.8, 0.8, 1.0)
 	style_pressed.shadow_size = 5
+	style_pressed.shadow_color = Color(0, 1, 1, 0.4)
 
 	back_to_home_button.add_theme_stylebox_override("normal", style_normal)
 	back_to_home_button.add_theme_stylebox_override("hover", style_hover)
 	back_to_home_button.add_theme_stylebox_override("pressed", style_pressed)
-	back_to_home_button.add_theme_font_size_override("font_size", 24)
-	back_to_home_button.add_theme_color_override("font_color", Color.WHITE)
+	back_to_home_button.add_theme_font_size_override("font_size", 20)
+	back_to_home_button.add_theme_color_override("font_color", Color(0, 1, 1, 1))
 
 	# Connect to back function
 	back_to_home_button.pressed.connect(_on_back_to_home_pressed)
 
-	# Add to top bar (next to logo)
-	logo_container.add_child(back_to_home_button)
+	# Add next to profile button in header row
+	var header_row = $TopBarPanel/TopBarContent/HeaderRow
+	header_row.add_child(back_to_home_button)
+	# Move it before the profile button
+	header_row.move_child(back_to_home_button, header_row.get_child_count() - 2)
 
 	# Initially hidden (only show when viewing events)
 	back_to_home_button.visible = false
