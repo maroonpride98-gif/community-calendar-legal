@@ -241,4 +241,100 @@ router.post('/:id/favorite', auth, async (req, res) => {
   }
 });
 
+// POST /api/events/:id/comments - Add a comment (requires auth)
+router.post('/:id/comments', auth, async (req, res) => {
+  try {
+    const { text } = req.body;
+
+    if (!text || text.trim().length === 0) {
+      return res.status(400).json({ message: 'Comment text is required' });
+    }
+
+    if (text.length > 500) {
+      return res.status(400).json({ message: 'Comment cannot exceed 500 characters' });
+    }
+
+    const event = await Event.findById(req.params.id);
+
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    // Add comment
+    event.comments.push({
+      user_id: req.userId,
+      username: req.user.username,
+      text: text.trim(),
+      created_at: new Date(),
+    });
+
+    await event.save();
+
+    // Return the newly added comment
+    const newComment = event.comments[event.comments.length - 1];
+
+    res.status(201).json(newComment);
+  } catch (error) {
+    console.error('Add comment error:', error);
+    res.status(500).json({ message: 'Failed to add comment' });
+  }
+});
+
+// GET /api/events/:id/comments - Get all comments for an event
+router.get('/:id/comments', optionalAuth, async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    res.json(event.comments || []);
+  } catch (error) {
+    console.error('Get comments error:', error);
+    res.status(500).json({ message: 'Failed to fetch comments' });
+  }
+});
+
+// DELETE /api/events/:id/comments/:commentId - Delete a comment (requires auth)
+router.delete('/:id/comments/:commentId', auth, async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    // Find the comment
+    const commentIndex = event.comments.findIndex(
+      c => c._id.toString() === req.params.commentId
+    );
+
+    if (commentIndex === -1) {
+      return res.status(404).json({ message: 'Comment not found' });
+    }
+
+    const comment = event.comments[commentIndex];
+
+    // Check if user is comment author or event organizer (admin)
+    const isAuthor = comment.user_id.toString() === req.userId.toString();
+    const isOrganizer = event.organizer_id.toString() === req.userId.toString();
+
+    // TODO: Add proper admin check here
+    // For now, allow comment author or event organizer to delete
+    if (!isAuthor && !isOrganizer) {
+      return res.status(403).json({ message: 'You can only delete your own comments or if you are the event organizer' });
+    }
+
+    // Remove comment
+    event.comments.splice(commentIndex, 1);
+    await event.save();
+
+    res.status(204).send();
+  } catch (error) {
+    console.error('Delete comment error:', error);
+    res.status(500).json({ message: 'Failed to delete comment' });
+  }
+});
+
 module.exports = router;
